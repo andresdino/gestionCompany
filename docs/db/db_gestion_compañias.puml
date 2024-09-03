@@ -1,0 +1,45 @@
+@startuml
+title base datos para la gestion de compañias
+
+entity "Companias" as Companias {
+  *id : BIGINT
+  *nombre : VARCHAR(100)
+  *nit : VARCHAR(100)
+  *propietario : VARCHAR(100)
+  *direccion : VARCHAR(255)
+  *telefono : VARCHAR(20)
+  *email : VARCHAR(100)
+  *fecha_creacion : DATETIME
+  *fecha_actualizacion : DATETIME
+  *estado_registro : STRING
+}
+
+entity "Sucursales" as Sucursales {
+  *id : BIGINT
+  *compania_id : BIGINT
+  *nombre : VARCHAR(100)
+  *responsable : VARCHAR(100)
+  *direccion : VARCHAR(255)
+  *telefono : VARCHAR(20)
+  *email : VARCHAR(100)
+  *estado_registro : STRING
+  *fecha_creacion : DATETIME
+  *fecha_actualizacion : DATETIME
+}
+
+entity "Empleados" as Empleados {
+  *id : BIGINT
+  *sucursal_id : BIGINT
+  *nombre : VARCHAR(100)
+  *apellido : VARCHAR(100)
+  *email : VARCHAR(100)
+  *telefono : VARCHAR(20)
+  *estado_registro : STRING
+  *fecha_contratacion : DATETIME
+  *fecha_actualizacion : DATETIME
+}
+
+Companias ||--o{ Sucursales
+Sucursales ||--o{ Empleados
+
+@enduml

@@ -1,0 +1,57 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+title Caso de uso gestion companias
+autonumber
+
+participant "Usuario" as usuario
+participant "CompaniaController" as companiaController
+participant "ICompaniaService" as iCompaniaService
+participant "CompaniaRepository" as companiaRepository
+participant "GeneradorRespuesta" as generadorRespuesta
+participant "CompaniasMapper" as companiasMapper
+
+usuario ->companiaController: realiza la peticion
+activate companiaController
+companiaController ->iCompaniaService: Segun la peticion y busca el metodo
+activate iCompaniaService
+iCompaniaService ->iCompaniaService++: Realiza la respectiva logica
+deactivate iCompaniaService
+iCompaniaService -> companiaRepository: extrae la informacion requeria
+activate companiaRepository
+companiaRepository-->iCompaniaService: return informacion solicitada
+deactivate companiaRepository
+
+group valida informacion
+    iCompaniaService->iCompaniaService++: validacion informacion
+    deactivate iCompaniaService
+skinparam sequenceGroupBorderColor #F8C471
+    group existe informacion
+    iCompaniaService ->companiasMapper
+    activate companiasMapper
+    companiasMapper->companiasMapper++: Realiza proceso de trasformacion requerida
+    deactivate companiasMapper
+    companiasMapper -->iCompaniaService
+    deactivate companiasMapper
+    iCompaniaService->generadorRespuesta: Construye la respuesta final al cliente
+    activate generadorRespuesta
+    generadorRespuesta --> iCompaniaService: return respuesta final
+    deactivate generadorRespuesta
+    end
+skinparam sequenceGroupBorderColor #F1948A
+    group no existe informacion
+    iCompaniaService->generadorRespuesta: Construye la respuesta final al cliente
+    activate generadorRespuesta
+    generadorRespuesta -> generadorRespuesta++: noExiste()
+    deactivate generadorRespuesta
+    generadorRespuesta -->iCompaniaService: return respuesta final
+    deactivate generadorRespuesta
+    end
+end
+    iCompaniaService --> companiaController: return respuesta final
+    deactivate iCompaniaService
+    companiaController-->usuario: return
+    deactivate companiaController
+
+
+@enduml

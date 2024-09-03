@@ -1,0 +1,35 @@
+@startuml
+title modelo base datos para gestion usuario
+
+entity "Usuarios" as Usuarios {
+  *id : UUID
+  *username : VARCHAR(50)
+  *email : VARCHAR(100)
+  *password_hash : VARCHAR(255)
+  *created_at : DATETIME
+  *updated_at : DATETIME
+}
+
+entity "Roles" as Roles {
+  *id : UUID
+  *role_name : VARCHAR(50)
+  *description : TEXT
+
+}
+
+entity "Permisos" as Permisos {
+  *id : UUID
+  *permission_name : VARCHAR(50)
+  *description : TEXT
+}
+
+entity "Usuarios_Roles" as Usuarios_Roles {
+  *usuario_id : UUID
+  *rol_id : UUID
+}
+
+Usuarios ||--o{ Usuarios_Roles
+Roles ||--o{ Usuarios_Roles
+Roles ||--o{ Permisos
+
+@enduml

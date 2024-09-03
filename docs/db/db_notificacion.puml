@@ -1,0 +1,31 @@
+@startuml
+
+title base datos para la gestion de notificaciones
+
+entity "Tipos_Notificaciones" as Tipos_Notificaciones {
+  *id : UUID
+  *nombre : VARCHAR(50)
+  *descripcion : TEXT
+}
+
+entity "Notificaciones" as Notificaciones {
+  *id : UUID
+  *usuario_id : UUID
+  *tipo_notificacion_id : UUID
+  *mensaje : TEXT
+  *fecha_envio : DATETIME
+  *estado : VARCHAR(50)
+}
+
+entity "Historial_Notificaciones" as Historial_Notificaciones {
+  *id : UUID
+  *notificacion_id : UUID
+  *fecha_envio : DATETIME
+  *resultado : VARCHAR(100)
+}
+
+
+Tipos_Notificaciones ||--o{ Notificaciones
+Notificaciones ||--o{ Historial_Notificaciones
+
+@enduml

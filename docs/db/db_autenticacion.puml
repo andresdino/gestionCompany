@@ -1,0 +1,45 @@
+@startuml
+
+title base datos para la gestion de autenticacion
+
+entity "Usuarios_Roles" as Usuarios_Roles {
+   *usuario_id : UUID
+  *rol_id : UUID
+  *fecha_creacion : DATETIME
+  *fecha_actualizacion : DATETIME
+}
+
+entity "Roles" as Roles {
+  *id : UUID
+  *nombre : VARCHAR(50)
+  *descripcion : TEXT
+}
+
+entity "Permisos" as Permisos {
+  *id : UUID
+  *nombre : VARCHAR(50)
+  *descripcion : TEXT
+}
+
+entity "Roles_Permisos" as Roles_Permisos {
+  *rol_id : UUID
+  *permiso_id : UUID
+}
+
+entity "Tokens" as Tokens {
+  *id : UUID
+  *usuario_id : UUID
+  *token : VARCHAR(255)
+  *fecha_creacion : DATETIME
+  *fecha_expiracion : DATETIME
+}
+
+
+Roles ||--o{ Usuarios_Roles
+
+Roles ||--o{ Roles_Permisos
+Permisos ||--o{ Roles_Permisos
+
+Usuarios_Roles ||--o{ Tokens
+Tokens --> Usuarios_Roles
+@enduml

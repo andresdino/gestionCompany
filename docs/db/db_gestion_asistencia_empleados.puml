@@ -1,0 +1,38 @@
+@startuml
+
+title base datos para la gestion de Asistencias
+
+entity "Empleados" as Empleados {
+  *id : UUID
+  *nombre : VARCHAR(100)
+  *apellido : VARCHAR(100)
+  *email : VARCHAR(100)
+  *direccion : VARCHAR(100)
+  *telefono : VARCHAR(20)
+  *fecha_contratacion : DATETIME
+  *fecha_actualizacion : DATETIME
+}
+
+entity "Asistencias" as Asistencias {
+  *id : UUID
+  *empleado_id : UUID
+  *fecha : DATE
+  *hora_entrada : TIME
+  *hora_salida : TIME
+  *hora_total : TIME
+}
+
+entity "Permisos" as Permisos {
+  *id : UUID
+  *empleado_id : UUID
+  *tipo_permiso : VARCHAR(50)
+  *fecha_inicio : DATE
+  *fecha_fin : DATE
+  *motivo : TEXT
+  *estado : VARCHAR(50
+}
+
+Empleados ||--o{ Asistencias
+Empleados ||--o{ Permisos
+
+@enduml
